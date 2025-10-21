@@ -17,7 +17,7 @@ jobs:
         uses: Fork-on-the-Table-Collective/UE5-build-action@v1.0
         with:
           enginePath: 'F:/Epic Games/UE_5.5'
-          uprojectPath: 'F:/Users/kleblanc/GitHub/PunkGame\PunkGame.uproject'
+          uprojectPath: 'F:/Users/kleblanc/GitHub/PunkGame/PunkGame.uproject'
           buildConfig: 'Development'
           platform: 'Win64'
           clean: 'false'
