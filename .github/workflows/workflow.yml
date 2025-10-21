@@ -1,0 +1,42 @@
+name: Build Unreal Engine 5
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Unreal Engine 5 Project
+        uses: Fork-on-the-Table-Collective/UE5-build-action@v1
+        with:
+          enginePath: 'F:/Epic Games/UE_5.5'
+          uprojectPath: 'F:/Users/kleblanc/GitHub/PunkGame\PunkGame.uproject'
+          buildConfig: 'Development'
+          platform: 'Win64'
+          clean: 'false'
+          cook: 'false'
+          compressed: 'false'
+          UpdateIfNeeded: 'false'
+          stage: 'false'
+          package: 'false'
+          pak: 'false'
+          server: 'false'
+          archive: 'false'
+          archivePath: ''
+          nullrhi: 'false'
+          editor: 'true'
+          encryptIniFiles: 'false'
+          release: ''
+          patch: ''
+          maps: 'false'
+          deletePDB: 'false'
+          anticheatEnabled: 'false'
+          anticheatPrivateKey: 'base64-private-key'
+          anticheatPublicCert: 'base64-public-cert'
