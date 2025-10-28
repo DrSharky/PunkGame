@@ -13,6 +13,20 @@ UInventoryComponent::UInventoryComponent()
 	// ...
 }
 
+void UInventoryComponent::AddItem(const FItemData& ItemData)
+{
+	for (FItemData& ExistingItem : Items)
+	{
+		if (ExistingItem.ItemID == ItemData.ItemID)
+		{
+			ExistingItem.Quantity += ItemData.Quantity;
+			return;
+		}
+	}
+
+	Items.Add(ItemData);
+}
+
 void UInventoryComponent::EquipNextWeapon()
 {
 	//if (Weapons.Num() == 0) return;

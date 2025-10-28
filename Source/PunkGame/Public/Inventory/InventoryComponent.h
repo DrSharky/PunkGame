@@ -2,9 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Data/ItemData.h"
 #include "InventoryComponent.generated.h"
 
-//class ABaseWeapon;
+class ABaseWeapon;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class PUNKGAME_API UInventoryComponent : public UActorComponent
@@ -15,21 +16,26 @@ public:
 	// Sets default values for this component's properties
 	UInventoryComponent();
 
-	//void AddWeapon(TSubclassOf<ABaseWeapon> WeaponClass);
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
+	TArray<FItemData> Items;
+
+	void AddItem(const FItemData& ItemData);
+
+	void AddWeapon(TSubclassOf<ABaseWeapon> WeaponClass);
 
 	void EquipNextWeapon();
 
-	//ABaseWeapon* GetCurrentWeapon() const { return CurrentWeapon; }
+	ABaseWeapon* GetCurrentWeapon() const { return CurrentWeapon; }
 
 protected:
 	virtual void BeginPlay() override;
 
 private:
-	//UPROPERTY()
-	//TArray<ABaseWeapon*> Weapons;
+	UPROPERTY()
+	TArray<ABaseWeapon*> Weapons;
 
-	//UPROPERTY()
-	//ABaseWeapon* CurrentWeapon;
+	UPROPERTY()
+	ABaseWeapon* CurrentWeapon;
 
 	int32 CurrentIndex;
 

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Data/ItemData.h"
 #include "BasePickup.generated.h"
 
 UCLASS()
@@ -12,11 +13,31 @@ class PUNKGAME_API ABasePickup : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	ABasePickup();
 
+	UPROPERTY(EditDefaultsOnly, Category = "Pickup")
+	FItemData ItemData;
+
 protected:
-	// Called when the game starts or when spawned
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pickup")
+	class USphereComponent* CollisionComp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pickup")
+	class UStaticMeshComponent* MeshComp;
+
+	UFUNCTION()
+	virtual void OnOverlapBegin(
+		UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+		bool bFromSweep, const FHitResult& SweepResult
+	);
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Pickup")
+	void OnPickedUp(AActor* PickingActor);
+
+	virtual void OnPickedUp_Implementation(AActor* PickingActor);
+
 	virtual void BeginPlay() override;
 
 public:	
