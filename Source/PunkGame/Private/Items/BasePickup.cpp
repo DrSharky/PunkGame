@@ -41,16 +41,17 @@ void ABasePickup::OnPickedUp_Implementation(AActor* PickingActor)
 {
 	if (ACharacter* Character = Cast<ACharacter>(PickingActor))
 	{
-		UE_LOG(LogTemp, Log, TEXT("%s picked up a %s"), *Character->GetName(), this->GetName());
+		UE_LOG(LogTemp, Log, TEXT("%s picked up a %s"), *Character->GetName(), *this->GetName());
 
 		if (UInventoryComponent* InventoryComp = Character->FindComponentByClass<UInventoryComponent>())
 		{
 			InventoryComp->AddItem(ItemData);
-			UE_LOG(LogTemp, Log, TEXT("%s added to inventory."), this->GetName());
+			UE_LOG(LogTemp, Log, TEXT("%s added to inventory."), *this->GetName());
 		}
 		else
 		{
 			UE_LOG(LogTemp, Warning, TEXT("No InventoryComponent found on %s."), *Character->GetName());
 		}
 	}
+	Destroy();
 }

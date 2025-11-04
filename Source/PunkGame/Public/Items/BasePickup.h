@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Data/ItemData.h"
+#include "Data/ItemDataAsset.h"
 #include "BasePickup.generated.h"
 
 UCLASS()
@@ -15,9 +16,6 @@ class PUNKGAME_API ABasePickup : public AActor
 public:	
 	ABasePickup();
 
-	UPROPERTY(EditDefaultsOnly, Category = "Pickup")
-	FItemData ItemData;
-
 protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pickup")
@@ -25,6 +23,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pickup")
 	class UStaticMeshComponent* MeshComp;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
+	TObjectPtr<UItemDataAsset> ItemData;
 
 	UFUNCTION()
 	virtual void OnOverlapBegin(

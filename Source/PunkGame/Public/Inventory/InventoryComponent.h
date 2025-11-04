@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Data/ItemData.h"
+#include "InventoryItem.h"
 #include "InventoryComponent.generated.h"
 
 class ABaseWeapon;
@@ -18,18 +19,21 @@ public:
 	// Sets default values for this component's properties
 	UInventoryComponent();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
-	TArray<FItemData> Items;
+	void AddItem(UItemDataAsset* ItemData, int32 Quantity = 1);
 
-	void AddItem(const FItemData& ItemData);
+	bool HasItem(FName ItemID) const;
 
-	void AddWeapon(TSubclassOf<ABaseWeapon> WeaponClass);
+	/*void AddWeapon(TSubclassOf<ABaseWeapon> WeaponClass);*/
 
 	void EquipNextWeapon();
 
 	ABaseWeapon* GetCurrentWeapon() const { return CurrentWeapon; }
 
 protected:
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inventory")
+	TArray<FInventoryItem> Items;
+
 	virtual void BeginPlay() override;
 
 private:
