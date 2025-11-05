@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Inventory/InventoryComponent.h"
 #include "PunkCharacter.generated.h"
 
 UCLASS()
@@ -14,6 +15,9 @@ class PUNKGAME_API APunkCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	APunkCharacter();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
+	UInventoryComponent* InventoryComponent;
 
 protected:
 	// Called when the game starts or when spawned

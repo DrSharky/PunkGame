@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include <Inventory/InventoryComponent.h>
 #include "PunkGameCharacter.generated.h"
 
 class USpringArmComponent;
@@ -46,6 +47,9 @@ class APunkGameCharacter : public ACharacter
 
 public:
 	APunkGameCharacter();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
+	UInventoryComponent* InventoryComponent;
 	
 
 protected:

@@ -12,10 +12,16 @@ UInventoryComponent::UInventoryComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 	CurrentWeapon = nullptr;
 	CurrentIndex = -1;
+	Items = TArray<FInventoryItem>();
 }
 
 void UInventoryComponent::AddItem(UItemDataAsset* ItemData, int32 Quantity)
 {
+
+	if (ItemData == nullptr)
+	{
+		return;
+	}
 
 	if (ItemData)
 	{

@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Inventory/InventoryComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include <PunkGame/PunkGameCharacter.h>
 
 // Sets default values
 ABasePickup::ABasePickup()
@@ -30,21 +31,45 @@ void ABasePickup::OnOverlapBegin(
 	bool bFromSweep, const FHitResult& SweepResult
 )
 {
+	if (OtherActor == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("OnOverlapBegin: OtherActor is null."));
+		return;
+	}
 	if (OtherActor && (OtherActor != this))
 	{
 		OnPickedUp(OtherActor);
-		Destroy();
 	}
 }
 
 void ABasePickup::OnPickedUp_Implementation(AActor* PickingActor)
 {
-	if (ACharacter* Character = Cast<ACharacter>(PickingActor))
+	if (PickingActor == nullptr)
 	{
-		UE_LOG(LogTemp, Log, TEXT("%s picked up a %s"), *Character->GetName(), *this->GetName());
+		return;
+	}
+
+	if (!IsValid(PickingActor))
+	{
+		return;
+	}
+
+	if (APunkGameCharacter* Character = Cast<APunkGameCharacter>(PickingActor))
+	{
+		if (Character == nullptr)
+		{
+			return;
+		}
+		/*UE_LOG(LogTemp, Log, TEXT("%s picked up a %s"), *Character->GetName(), *this->GetName());*/
 
 		if (UInventoryComponent* InventoryComp = Character->FindComponentByClass<UInventoryComponent>())
 		{
+
+			if (InventoryComp == nullptr)
+			{
+				return;
+			}
+
 			InventoryComp->AddItem(ItemData);
 			UE_LOG(LogTemp, Log, TEXT("%s added to inventory."), *this->GetName());
 		}
@@ -52,6 +77,10 @@ void ABasePickup::OnPickedUp_Implementation(AActor* PickingActor)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("No InventoryComponent found on %s."), *Character->GetName());
 		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cast of character failed."));
 	}
 	Destroy();
 }

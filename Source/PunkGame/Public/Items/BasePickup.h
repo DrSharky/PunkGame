@@ -39,10 +39,4 @@ protected:
 
 	virtual void OnPickedUp_Implementation(AActor* PickingActor);
 
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 };
