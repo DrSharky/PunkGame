@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Weapons/WeaponType.h"
 #include "BaseWeapon.generated.h"
 
 UCLASS()
@@ -12,6 +13,12 @@ class PUNKGAME_API ABaseWeapon : public AActor
 public:
 	// Sets default values for this actor's properties
 	ABaseWeapon();
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	WeaponType Type;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	FName WeaponName;
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	virtual void UseWeapon();

@@ -1,0 +1,15 @@
+// Copyright Dystopia Games, Inc. All Rights Reserved.
+
+#pragma once
+
+#include "CoreMinimal.h"
+
+/**
+ * 
+ */
+enum WeaponType
+{
+	Melee,
+	Ranged,
+	Explosive
+};

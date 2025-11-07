@@ -17,7 +17,6 @@ UInventoryComponent::UInventoryComponent()
 
 void UInventoryComponent::AddItem(UItemDataAsset* ItemData, int32 Quantity)
 {
-
 	if (ItemData == nullptr)
 	{
 		return;
@@ -38,7 +37,22 @@ void UInventoryComponent::AddItem(UItemDataAsset* ItemData, int32 Quantity)
 	FInventoryItem NewItem;
 	NewItem.ItemData = ItemData;
 	NewItem.Quantity = Quantity;
+
 	Items.Add(NewItem);
+
+	if (Items.Num() == 1)
+	{
+		if (ItemData->bIsEquippable)
+		{
+			ABaseWeapon* NewWeapon = GetWorld()->SpawnActor<ABaseWeapon>(ItemData->UseActionClass);
+			if (NewWeapon)
+			{
+				NewWeapon->SetActorHiddenInGame(true);
+				Weapons.Add(NewWeapon);
+				EquipWeapon(0);
+			}
+		}
+	}
 }
 
 bool UInventoryComponent::HasItem(FName ItemID) const

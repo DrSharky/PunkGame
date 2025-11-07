@@ -8,4 +8,16 @@ ABaseWeapon::ABaseWeapon()
 	RootComponent = Mesh;
 }
 
-void ABaseWeapon::UseWeapon() {}
+void ABaseWeapon::UseWeapon()
+{
+	UE_LOG(LogTemp, Log, TEXT("%s used."), *WeaponName.ToString());
+
+	if (Type == WeaponType::Melee)
+	{
+		UE_LOG(LogTemp, Log, TEXT("Performing melee attack."));
+	}
+	else if (Type == WeaponType::Ranged)
+	{
+		UE_LOG(LogTemp, Log, TEXT("Firing ranged weapon."));
+	}
+}

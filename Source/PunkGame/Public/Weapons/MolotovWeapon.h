@@ -14,4 +14,12 @@ class PUNKGAME_API AMolotovWeapon : public ABaseWeapon
 {
 	GENERATED_BODY()
 	
+
+public:
+	AMolotovWeapon();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	TSubclassOf<class AMolotovProjectile> MolotovProjectileClass;
+
+	virtual void UseWeapon() override;
 };
