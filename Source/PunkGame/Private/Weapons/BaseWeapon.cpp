@@ -12,11 +12,11 @@ void ABaseWeapon::UseWeapon()
 {
 	UE_LOG(LogTemp, Log, TEXT("%s used."), *WeaponName.ToString());
 
-	if (Type == WeaponType::Melee)
+	if (Type == EWeaponType::Melee)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Performing melee attack."));
 	}
-	else if (Type == WeaponType::Ranged)
+	else if (Type == EWeaponType::Ranged)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Firing ranged weapon."));
 	}

@@ -15,7 +15,7 @@ public:
 	ABaseWeapon();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
-	WeaponType Type;
+	EWeaponType Type;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	FName WeaponName;

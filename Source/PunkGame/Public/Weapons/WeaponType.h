@@ -7,9 +7,10 @@
 /**
  * 
  */
-enum WeaponType
+UENUM(BlueprintType)
+enum class EWeaponType : uint8
 {
-	Melee,
-	Ranged,
-	Explosive
+	Melee UMETA(DisplayName = "Melee"),
+	Ranged UMETA(DisplayName = "Ranged"),
+	Explosive UMETA(DisplayName = "Explosive")
 };
