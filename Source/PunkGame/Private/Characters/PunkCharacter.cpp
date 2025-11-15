@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Dystopia Games, Inc. All Rights Reserved.
 
 
 #include "Characters/PunkCharacter.h"

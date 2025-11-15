@@ -1,4 +1,4 @@
-// Copyright Dystopia Games, Inc.All Rights Reserved.
+// Copyright Dystopia Games, Inc. All Rights Reserved.
 
 #pragma once
 

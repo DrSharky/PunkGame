@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class PUNKGAME_API UItemDataAsset : public UDataAsset
 {
 	GENERATED_BODY()
@@ -32,4 +32,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
 	bool bIsEquippable = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item")
+	TSubclassOf<class ABaseWeapon> WeaponClass;
 };

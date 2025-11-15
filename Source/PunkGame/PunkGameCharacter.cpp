@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright Dystopia Games, Inc. All Rights Reserved.
 
 #include "PunkGameCharacter.h"
 #include "Engine/LocalPlayer.h"

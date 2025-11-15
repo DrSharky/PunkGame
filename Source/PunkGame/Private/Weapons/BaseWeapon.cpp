@@ -1,3 +1,6 @@
+// Copyright Dystopia Games, Inc. All Rights Reserved.
+
+
 #include "Weapons/BaseWeapon.h"
 
 // Sets default values
