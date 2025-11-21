@@ -18,13 +18,13 @@ void AMolotovWeapon::UseWeapon()
 		UWorld* World = GetWorld();
 		if (World)
 		{
-			FVector MuzzleLocation = Mesh->GetSocketLocation("Muzzle");
-			FRotator MuzzleRotation = Mesh->GetSocketRotation("Muzzle");
+			FVector SpawnPos = Mesh->GetSocketLocation("SpawnPos");
+			FRotator SpawnRot = Mesh->GetSocketRotation("SpawnRot");
 			FActorSpawnParameters SpawnParams;
 			SpawnParams.Owner = this;
 			SpawnParams.Instigator = GetInstigator();
-			// Spawn the projectile at the muzzle
-			World->SpawnActor<AMolotovProjectile>(MolotovProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
+
+			World->SpawnActor<AMolotovProjectile>(MolotovProjectileClass, SpawnPos, SpawnRot, SpawnParams);
 		}
 	}
 }

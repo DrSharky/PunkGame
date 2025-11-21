@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Data/ItemData.h"
 #include "Data/ItemDataAsset.h"
 #include "BasePickup.generated.h"
 
@@ -28,11 +27,9 @@ protected:
 	TObjectPtr<UItemDataAsset> ItemData;
 
 	UFUNCTION()
-	virtual void OnOverlapBegin(
-		UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
-		bool bFromSweep, const FHitResult& SweepResult
-	);
+	virtual void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+								UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+								bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Pickup")
 	void OnPickedUp(AActor* PickingActor);
