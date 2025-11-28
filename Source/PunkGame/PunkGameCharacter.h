@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "AbilitySystemInterface.h"
 #include <Inventory/InventoryComponent.h>
+#include "GAS/AttributeSets/HealthAttributeSet.h"
 #include "PunkGameCharacter.generated.h"
 
 class USpringArmComponent;
@@ -17,7 +19,7 @@ struct FInputActionValue;
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game)
-class APunkGameCharacter : public ACharacter
+class APunkGameCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -45,6 +47,10 @@ class APunkGameCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+	void BeginPlay() override;
+
 public:
 	APunkGameCharacter();
 
@@ -53,6 +59,9 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities")
 	TObjectPtr<class UPunkGameAbilitySystemComponent> PunkAbilitySystemComp;
+
+	UPROPERTY()
+	TObjectPtr<class UHealthAttributeSet> HealthSet;
 
 protected:
 

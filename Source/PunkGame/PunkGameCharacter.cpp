@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "GAS/PunkGameAbilitySystemComponent.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -51,6 +52,9 @@ APunkGameCharacter::APunkGameCharacter()
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
+
+	PunkAbilitySystemComp = CreateDefaultSubobject<UPunkGameAbilitySystemComponent>(TEXT("PunkAbilitySystemComp"));
+	HealthSet = CreateDefaultSubobject<UHealthAttributeSet>(TEXT("HealthSet"));
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
@@ -128,4 +132,16 @@ void APunkGameCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+UAbilitySystemComponent* APunkGameCharacter::GetAbilitySystemComponent() const
+{
+	return PunkAbilitySystemComp;
+}
+
+void APunkGameCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	/*PunkAbilitySystemComp->InitAbilityActorInfo(this, this);*/
 }
