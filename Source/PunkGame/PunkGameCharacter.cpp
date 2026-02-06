@@ -10,9 +10,6 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
-#include "GAS/PunkGameAbilitySystemComponent.h"
-
-DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 //////////////////////////////////////////////////////////////////////////
 // APunkGameCharacter
@@ -53,8 +50,6 @@ APunkGameCharacter::APunkGameCharacter()
 
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 
-	PunkAbilitySystemComp = CreateDefaultSubobject<UPunkGameAbilitySystemComponent>(TEXT("PunkAbilitySystemComp"));
-	HealthSet = CreateDefaultSubobject<UHealthAttributeSet>(TEXT("HealthSet"));
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
@@ -94,7 +89,7 @@ void APunkGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	}
 	else
 	{
-		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
+		UE_LOG(LogTemp, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
 }
 
@@ -134,14 +129,8 @@ void APunkGameCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-UAbilitySystemComponent* APunkGameCharacter::GetAbilitySystemComponent() const
-{
-	return PunkAbilitySystemComp;
-}
 
 void APunkGameCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	/*PunkAbilitySystemComp->InitAbilityActorInfo(this, this);*/
 }
