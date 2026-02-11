@@ -50,6 +50,7 @@ APunkGameCharacter::APunkGameCharacter()
 
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 
+	PhysicsHandle = CreateDefaultSubobject<UPhysicsHandleComponent>(TEXT("PhysicsHandle"));
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
@@ -133,4 +134,47 @@ void APunkGameCharacter::Look(const FInputActionValue& Value)
 void APunkGameCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void APunkGameCharacter::PickupThrowable(BaseThrowable* ThrowableActor)
+{
+	if (IsValid(ThrowableActor))
+	{
+		UPrimitiveComponent* Prim = Cast<UPrimitiveComponent>(ThrowableActor->GetRootComponent());
+		if (IsValid(Prim))
+		{
+			Prim->IgnoreActorWhenMoving(this, true);
+			//Prim->SetSimulatePhysics(false);
+			Prim->SetEnableGravity(false);
+			PhysicsHandle->GrabComponentAtLocationWithRotation(Prim, NAME_None, Prim->GetComponentLocation(), Prim->GetComponentRotation());
+			Prim->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, TEXT("ThrowableSocket"));
+		}
+	}
+}
+
+void APunkGameCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if(PhysicsHandle->GrabbedComponent)
+	{
+		FVector TargetLocation = GetMesh()->GetSocketLocation(TEXT("ThrowableSocket"));
+		FRotator TargetRotation = GetMesh()->GetSocketRotation(TEXT("ThrowableSocket"));
+		PhysicsHandle->SetTargetLocationAndRotation(TargetLocation, TargetRotation);
+	}
+}
+
+void APunkGameCharacter::Throw(float Strength)
+{
+	if (PhysicsHandle->GrabbedComponent)
+	{
+		UPrimitiveComponent* Prim = PhysicsHandle->GrabbedComponent;
+		PhysicsHandle->ReleaseComponent();
+		Prim->SetEnableGravity(true);
+		Prim->SetSimulatePhysics(true);
+		FVector ForwardVector = GetActorForwardVector();
+		Prim->AddImpulse(ForwardVector * Strength, NAME_None, true);
+		HeldComponent->IgnoreActorWhenMoving(this, false);
+		HeldComponent = nullptr;
+	}
 }

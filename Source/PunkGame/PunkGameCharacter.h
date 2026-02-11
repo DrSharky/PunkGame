@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include <Inventory/InventoryComponent.h>
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "PunkGameCharacter.generated.h"
 
 class USpringArmComponent;
@@ -43,6 +44,12 @@ class APunkGameCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	UPROPERTY(VisibleAnywhere)
+	UPhysicsHandleComponent* PhysicsHandle;
+
+	UPROPERTY()
+	UPrimitiveComponent* HeldComponent;
+
 	void BeginPlay() override;
 
 public:
@@ -54,6 +61,12 @@ public:
 protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Throwables")
+	void PickupThrowable(BaseThrowable* ThrowableActor);
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Throwables")
+	void Throw(float Strength);
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
